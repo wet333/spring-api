@@ -1,6 +1,7 @@
 # Ignore files
 target
 .idea
+.env
 
 # Compiled class file
 *.class
