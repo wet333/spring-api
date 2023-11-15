@@ -2,7 +2,7 @@
 
 # Define variables
 DOCKER_IMAGE="vps-spring"
-VERSION_TAG="1.0.0"
+VERSION_TAG="1.0.1"
 LATEST_FLAG=true
 REPOSITORY="wetagustin/vps-spring"
 

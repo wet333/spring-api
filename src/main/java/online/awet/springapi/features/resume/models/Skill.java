@@ -16,6 +16,8 @@ public class Skill {
     @Lob
     @Column(name = "img", nullable = true)
     private String image;
+    @Column(name = "show_order", nullable = true)
+    private Integer order;
 
     public boolean isValid() {
         return this.name != null && !this.name.isBlank();
@@ -48,5 +50,13 @@ public class Skill {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 }

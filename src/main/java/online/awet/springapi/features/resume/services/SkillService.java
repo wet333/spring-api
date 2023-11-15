@@ -42,6 +42,9 @@ public class SkillService {
             if (updatedSkill.getImage() != null && !updatedSkill.getImage().isBlank()) {
                 dbSkill.get().setImage(updatedSkill.getImage());
             }
+            if (updatedSkill.getOrder() != null) {
+                dbSkill.get().setOrder(updatedSkill.getOrder());
+            }
             return skillRepository.save(dbSkill.get());
         }
         return null;

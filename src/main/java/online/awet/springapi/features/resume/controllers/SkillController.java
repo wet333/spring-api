@@ -85,13 +85,6 @@ public class SkillController {
     public ResponseEntity<ApiResponse<Skill>> updateSkill(@PathVariable Long id, @RequestBody Skill newSkill) {
         ApiResponse<Skill> response = new ApiResponse<>();
 
-        if (!newSkill.isValid()) {
-            response.setReturnCode(ReturnCodes.BAD_REQUEST.getCode());
-            response.setMessage("Fields [name] are required");
-            response.setData(null);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-
         Skill oldSkill = skillService.updateSkill(id, newSkill);
 
         if (oldSkill != null) {

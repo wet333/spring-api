@@ -83,13 +83,6 @@ public class ContactController {
     public ResponseEntity<ApiResponse<Contact>> updateContact(@PathVariable Long id, @RequestBody Contact contact) {
         ApiResponse<Contact> response = new ApiResponse<>();
 
-        if (!contact.isValid()) {
-            response.setReturnCode(ReturnCodes.BAD_REQUEST.getCode());
-            response.setMessage("Fields [name, value] are required");
-            response.setData(null);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-
         Contact dbContact = contactServices.updateContact(id, contact);
         if (dbContact != null) {
             response.setReturnCode(ReturnCodes.OK.getCode());
