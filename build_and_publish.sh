@@ -6,6 +6,9 @@ VERSION_TAG="1.0.0"
 LATEST_FLAG=true
 REPOSITORY="wetagustin/vps-spring"
 
+# Build the target .jar
+./mvnw clean package
+
 # Important!!! - I need this to push to dockerhub, because the terminal
 # opened for executing this script is different that where i started it.
 docker login
