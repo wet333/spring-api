@@ -6,12 +6,14 @@ import online.awet.springapi.features.resume.models.Contact;
 import online.awet.springapi.features.resume.services.ContactServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/resume/contacts")
+@PreAuthorize("hasRole('ADMIN')")
 public class ContactController {
 
     ContactServices contactServices;
