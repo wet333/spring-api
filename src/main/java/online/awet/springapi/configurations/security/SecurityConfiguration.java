@@ -7,6 +7,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,12 +15,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
     private final DataSource dataSource;    // Default datasource defined in application.properties
     private final Environment env;          // Environment variables defined in application.properties
@@ -38,6 +40,10 @@ public class SecurityConfiguration {
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults());
+
+        // Disable csrf
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
+
         return httpSecurity.build();
     }
 
@@ -49,16 +55,16 @@ public class SecurityConfiguration {
         String userUsername = env.getProperty("appRoles.user.username", "user");
         String userPassword = env.getProperty("appRoles.user.password", "password");
 
-        UserDetails user = User.builder()
-            .username(userUsername)
-            .password(passwordEncoder().encode(userPassword))
-            .roles("USER")
-            .build();
-
         UserDetails admin = User.builder()
             .username(adminUsername)
             .password(passwordEncoder().encode(adminPassword))
             .roles("USER", "ADMIN")
+            .build();
+
+        UserDetails user = User.builder()
+            .username(userUsername)
+            .password(passwordEncoder().encode(userPassword))
+            .roles("USER")
             .build();
 
         UserDetailsManager manager = new JdbcUserDetailsManager(dataSource);

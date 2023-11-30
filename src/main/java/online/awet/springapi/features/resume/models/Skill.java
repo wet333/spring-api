@@ -16,8 +16,8 @@ public class Skill {
     @Lob
     @Column(name = "img", nullable = true)
     private String image;
-    @Column(name = "show_order", nullable = true)
-    private Integer order;
+    @Column(name = "show_order", nullable = true, columnDefinition = "integer default 0")
+    private Integer order = 0;
 
     public boolean isValid() {
         return this.name != null && !this.name.isBlank();

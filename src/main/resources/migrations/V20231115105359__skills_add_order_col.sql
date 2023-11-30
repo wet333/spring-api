@@ -1,1 +1,0 @@
-ALTER TABLE cv_skills ADD COLUMN "order" INT NOT NULL DEFAULT 0;

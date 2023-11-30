@@ -10,7 +10,8 @@ public enum ReturnCodes {
     DELETE_ERROR("ERR003"),
     UPDATE_ERROR("ERR004"),
     INVALID_BODY("ERR005"),
-    BAD_REQUEST("ERR006");
+    BAD_REQUEST("ERR006"),
+    SERVER_ERROR("ERR500");
 
     private final String code;
     ReturnCodes(String code) {
